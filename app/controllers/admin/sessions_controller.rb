@@ -1,10 +1,10 @@
-class Admin::SessionsController < ApplicationController
+class SessionsController < ApplicationController
   before_filter :authenticate
 
   # GET /admin/sessions
   # GET /admin/sessions.xml
   def index
-    @sessions = Admin::Session.all
+    @sessions = Session.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +15,7 @@ class Admin::SessionsController < ApplicationController
   # GET /admin/sessions/1
   # GET /admin/sessions/1.xml
   def show
-    @session = Admin::Session.find(params[:id])
+    @session = Session.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -26,7 +26,7 @@ class Admin::SessionsController < ApplicationController
   # GET /admin/sessions/new
   # GET /admin/sessions/new.xml
   def new
-    @session = Admin::Session.new
+    @session = Session.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -36,13 +36,13 @@ class Admin::SessionsController < ApplicationController
 
   # GET /admin/sessions/1/edit
   def edit
-    @session = Admin::Session.find(params[:id])
+    @session = Session.find(params[:id])
   end
 
   # POST /admin/sessions
   # POST /admin/sessions.xml
   def create
-    @session = Admin::Session.new(params[:session])
+    @session = Session.new(params[:session])
 
     respond_to do |format|
       if @session.save
@@ -58,7 +58,7 @@ class Admin::SessionsController < ApplicationController
   # PUT /admin/sessions/1
   # PUT /admin/sessions/1.xml
   def update
-    @session = Admin::Session.find(params[:id])
+    @session = Session.find(params[:id])
 
     respond_to do |format|
       if @session.update_attributes(params[:session])
@@ -74,7 +74,7 @@ class Admin::SessionsController < ApplicationController
   # DELETE /admin/sessions/1
   # DELETE /admin/sessions/1.xml
   def destroy
-    @session = Admin::Session.find(params[:id])
+    @session = Session.find(params[:id])
     @session.destroy
 
     respond_to do |format|
