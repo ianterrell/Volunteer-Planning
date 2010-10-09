@@ -1,4 +1,4 @@
-class SessionsController < ApplicationController
+class Admin::SessionsController < ApplicationController
   before_filter :authenticate
 
   # GET /admin/sessions
