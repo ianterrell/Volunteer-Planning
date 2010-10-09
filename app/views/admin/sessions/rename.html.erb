@@ -1,0 +1,11 @@
+<h1>Rename till your heart's content</h1>
+
+<%= form_tag do %>
+  <% Session.all.each do |session| %>
+    <div>
+      <%= text_field_tag "sessions[#{session.id}]", session.name %>
+    </div>
+  <% end %>
+  
+  <%= submit_tag %><%= link_to "Cancel", admin_sessions_path %>
+<% end %>

@@ -1,0 +1,48 @@
+<%= form_for(@volunteer) do |f| %>
+  <% if @volunteer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@volunteer.errors.count, "error") %> prohibited this volunteer from being saved:</h2>
+
+      <ul>
+      <% @volunteer.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :name %>  
+    <%= f.text_field :name %>
+  </div>
+  
+  <div>
+    <%= f.label :email %>  
+    <%= f.text_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :phone %>  
+    <%= f.text_field :phone %>
+  </div>
+  
+  <table>
+    <% Session.all.each do |session| %>
+      <tr>
+        <td>
+          <%= session.name %>
+        </td>
+        <td>
+          <% if session.volunteers.count >= 6 %>
+            <em>filled!</em>
+          <% else %>
+            <%= check_box_tag "volunteer[session_ids][]", session.id %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
