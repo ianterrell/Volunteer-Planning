@@ -1,0 +1,27 @@
+<%= link_to "View Sessions", admin_sessions_path %>
+
+<h1>Listing Volunteers</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Sessions</th>
+    <th></th>
+  </tr>
+
+<% @volunteers.each do |volunteer| %>
+  <tr>
+    <td><%= volunteer.name %></td>
+    <td><%= link_to volunteer.email, "mailto:#{volunteer.email}" %></td>
+    <td><%= volunteer.phone %></td>
+    <td><%= volunteer.sessions.map{|s|s.name}.join(', ') %></td>
+    <td><%= link_to 'Delete', [:admin, volunteer], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to "Export to Excel", export_admin_volunteers_path %>

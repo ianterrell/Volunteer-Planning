@@ -120,13 +120,6 @@ class Admin::SessionsController < ApplicationController
         csv << row
       end
     end
-    send_data csv_string, :type => "text/plain", :filename=> "volunteers.csv", :disposition => 'attachment'
-  end
-  
-private
-  def authenticate
-    authenticate_or_request_with_http_basic do |username, password| 
-      username == "admin" && password == "supertopsecret"
-    end
+    send_data csv_string, :type => "text/plain", :filename=> "sessions.csv", :disposition => 'attachment'
   end
 end

@@ -6,6 +6,11 @@ Volunteerplanning::Application.routes.draw do
   end
   
   namespace :admin do
+    resources :volunteers, :only => [:index, :destroy] do
+      collection do
+        get :export
+      end
+    end
     resources :sessions do
       collection do
         get :rename
