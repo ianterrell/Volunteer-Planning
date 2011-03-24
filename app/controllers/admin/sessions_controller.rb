@@ -86,25 +86,27 @@ class Admin::SessionsController < ApplicationController
   def rename
     if request.post?
       all_good = true
-      params[:sessions].each_pair do |id, name|
+      params[:sessions].each_pair do |id, attributes|
         session = Session.find id
-        session.name = name
+        session.name = attributes[:name]
+        session.limit = attributes[:limit]
         all_good = false unless session.save
       end
       if all_good
-        flash[:notice] = "Renamed!"
+        flash[:notice] = "Updated!"
         redirect_to admin_sessions_path
       else
-        flash.now[:alert] = "Fooey.  The names can't be blank."
+        flash.now[:alert] = "Fooey.  The names and limits can't be blank."
       end
     end
   end
   
   def export
     sessions = Session.all
+    max_limit = sessions.sort{|a,b|b.limit <=> a.limit}.first.limit
     csv_string = FasterCSV.generate do |csv| 
       headers = ["session"]
-      6.times do |i|
+      max_limit.times do |i|
         headers << "name #{i+1}"
         headers << "email #{i+1}"
         headers << "phone #{i+1}"
@@ -112,11 +114,14 @@ class Admin::SessionsController < ApplicationController
       csv << headers
       sessions.each do |session|
         row = [session.name]
+        count = 0
         session.volunteers.each do |v| 
           row << v.name
           row << v.email
           row << v.phone
+          count += 1
         end
+        ((max_limit - count) * 3).times { row << "" }
         csv << row
       end
     end
