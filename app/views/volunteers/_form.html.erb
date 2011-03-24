@@ -36,7 +36,7 @@
           <% if session.filled? %>
             <em>filled!</em>
           <% else %>
-            <%= check_box_tag "volunteer[session_ids][]", session.id, params[:volunteer] && params[:volunteer][:session_ids].include?(session.id.to_s) %>
+            <%= check_box_tag "volunteer[session_ids][]", session.id, params[:volunteer] && (params[:volunteer][:session_ids] || []).include?(session.id.to_s) %>
           <% end %>
         </td>
       </tr>
